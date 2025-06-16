@@ -1,29 +1,24 @@
-const API_URL = "https://c2ca1b7a2dabe00a426fcc6ac3f9873b.serveo.net"; // ← replace with your live tunnel link
+const API_URL = "https://c2ca1b7a2dabe00a426fcc6ac3f9873b.serveo.net";
 
-document.getElementById("botForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.getElementById("startBtn").addEventListener("click", async () => {
+    const apiKey = document.getElementById("apiKey").value;
+    const secretKey = document.getElementById("secretKey").value;
+    const symbol = document.getElementById("symbol").value;
 
-  const apiKey = document.getElementById("apiKey").value;
-  const secretKey = document.getElementById("secretKey").value;
+    const res = await fetch(`${API_URL}/start`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ api_key: apiKey, secret_key: secretKey, symbol }),
+    });
 
-  const res = await fetch(`${API_URL}/submit_keys`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ api_key: apiKey, secret_key: secretKey }),
-  });
-
-  const data = await res.json();
-  document.getElementById("status").innerText = data.message || "Submitted!";
+    const data = await res.json();
+    alert(data.message);
 });
 
-function startBot() {
-  fetch(`${API_URL}/start_bot`).then(() =>
-    document.getElementById("status").innerText = "Bot Started"
-  );
-}
-
-function stopBot() {
-  fetch(`${API_URL}/stop_bot`).then(() =>
-    document.getElementById("status").innerText = "Bot Stopped"
-  );
-}
+document.getElementById("stopBtn").addEventListener("click", async () => {
+    const res = await fetch(`${API_URL}/stop`, {
+        method: "POST",
+    });
+    const data = await res.json();
+    alert(data.message);
+});
