@@ -3,20 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <title>BHIX Bot Access</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 300px;
+      display: block;
+    }
+    button {
+      width: 150px;
+    }
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>BHIX Bot Demo (Investor Access)</h2>
-  <form id="botForm">
-    <label>Binance API Key:</label><br>
-    <input type="text" id="apiKey" required><br><br>
 
-    <label>Secret Key:</label><br>
-    <input type="password" id="secretKey" required><br><br>
+  <h2>BHIX Bot Demo – Investor Access</h2>
 
-    <button type="submit">Submit</button>
-    <button type="button" onclick="startBot()">Start</button>
-    <button type="button" onclick="stopBot()">Stop</button>
-  </form>
+  <label for="apiKey">Binance API Key:</label>
+  <input type="text" id="apiKey" placeholder="Your Binance API Key" required>
+
+  <label for="secretKey">Secret Key:</label>
+  <input type="password" id="secretKey" placeholder="Your Secret Key" required>
+
+  <label for="symbol">Trading Symbol:</label>
+  <input type="text" id="symbol" placeholder="e.g. BTCUSDT" required>
+
+  <button id="startBtn">Start Bot</button>
+  <button id="stopBtn">Stop Bot</button>
 
   <p id="status"></p>
 
