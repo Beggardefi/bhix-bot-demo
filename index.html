@@ -1,57 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>BHIX Bot Demo</title>
+  <meta charset="UTF-8" />
+  <title>BHIX Bot Access</title>
 </head>
 <body>
-  <h2>Try BHIX Bot (Free Trial)</h2>
+  <h2>BHIX Bot Demo (Investor Access)</h2>
   <form id="botForm">
     <label>Binance API Key:</label><br>
     <input type="text" id="apiKey" required><br><br>
-    <label>Secret Key:</label><br>
-    <input type="text" id="secretKey" required><br><br>
-    <label>Coin to Trade (e.g., BTCUSDT):</label><br>
-    <input type="text" id="symbol" required><br><br>
-    <label>Your Wallet Address:</label><br>
-    <input type="text" id="wallet" required><br><br>
 
-    <button type="submit">Start Bot</button>
-    <button type="button" onclick="stopBot()">Stop Bot</button>
+    <label>Secret Key:</label><br>
+    <input type="password" id="secretKey" required><br><br>
+
+    <button type="submit">Submit</button>
+    <button type="button" onclick="startBot()">Start</button>
+    <button type="button" onclick="stopBot()">Stop</button>
   </form>
+
   <p id="status"></p>
 
-  <script>
-    const server = "http://YOUR_PUBLIC_IP:8000";  // Replace with ngrok/public IP
-
-    document.getElementById('botForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const apiKey = document.getElementById('apiKey').value;
-      const secretKey = document.getElementById('secretKey').value;
-      const symbol = document.getElementById('symbol').value;
-      const wallet = document.getElementById('wallet').value;
-
-      const response = await fetch(`${server}/start-bot`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ apiKey, secretKey, symbol, wallet })
-      });
-
-      const result = await response.json();
-      document.getElementById('status').innerText = result.message;
-    });
-
-    async function stopBot() {
-      const wallet = document.getElementById('wallet').value;
-
-      const response = await fetch(`${server}/stop-bot`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ wallet })
-      });
-
-      const result = await response.json();
-      document.getElementById('status').innerText = result.message;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
