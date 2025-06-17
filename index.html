@@ -29,22 +29,29 @@
 </head>
 <body>
 
-  <h2>BHIX Bot Demo – Investor Access</h2>
+  <form id="botForm">
+  <label>Binance API Key:</label><br>
+  <input type="text" id="apiKey" required><br><br>
 
-  <label for="apiKey">Binance API Key:</label>
-  <input type="text" id="apiKey" placeholder="Your Binance API Key" required>
+  <label>Secret Key:</label><br>
+  <input type="password" id="secretKey" required><br><br>
 
-  <label for="secretKey">Secret Key:</label>
-  <input type="password" id="secretKey" placeholder="Your Secret Key" required>
+  <label for="symbol">Select Coin to Trade:</label><br>
+  <select id="symbol" required>
+    <option value="BTCUSDT">BTC/USDT</option>
+    <option value="ETHUSDT">ETH/USDT</option>
+    <option value="BNBUSDT">BNB/USDT</option>
+    <option value="ADAUSDT">ADA/USDT</option>
+    <option value="SOLUSDT">SOL/USDT</option>
+    <option value="DOGEUSDT">DOGE/USDT</option>
+    <option value="XRPUSDT">XRP/USDT</option>
+  </select><br><br>
 
-  <label for="symbol">Trading Symbol:</label>
-  <input type="text" id="symbol" placeholder="e.g. BTCUSDT" required>
-
-  <button id="startBtn">Start Bot</button>
-  <button id="stopBtn">Stop Bot</button>
-
-  <p id="status"></p>
-
+  <button type="submit">Submit</button>
+  <button type="button" onclick="startBot()">Start</button>
+  <button type="button" onclick="stopBot()">Stop</button>
+  </form>
+<p id="status"></p>
   <script src="script.js"></script>
 </body>
 </html>
