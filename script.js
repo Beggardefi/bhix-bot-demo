@@ -89,3 +89,5 @@ function fetchLogs() {
 }
 
 setInterval(fetchLogs, 10000); // fetch logs every 10 seconds
+const strategy = document.getElementById("strategy").value;
+// pass strategy in your POST body
