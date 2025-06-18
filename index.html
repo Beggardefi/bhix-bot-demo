@@ -29,25 +29,39 @@
 </head>
 <body>
 
-  <form id="botForm">
-  <input type="text" id="apiKey" placeholder="API Key" required />
-  <input type="text" id="secretKey" placeholder="Secret Key" required />
-  <input type="text" id="symbol" placeholder="Symbol (e.g. BTCUSDT)" required />
+<form id="botForm">
+  <label>API Key:</label>
+  <input type="text" id="apiKey" placeholder="Your Binance API Key" required /><br />
 
+  <label>Secret Key:</label>
+  <input type="text" id="secretKey" placeholder="Your Binance Secret Key" required /><br />
+
+  <label>Select Coin:</label>
+  <select id="symbol" required>
+    <option value="">--Select Coin--</option>
+    <option value="BTCUSDT">BTC/USDT</option>
+    <option value="ETHUSDT">ETH/USDT</option>
+    <option value="BNBUSDT">BNB/USDT</option>
+    <option value="SOLUSDT">SOL/USDT</option>
+    <option value="XRPUSDT">XRP/USDT</option>
+  </select><br />
+
+  <label>Strategy:</label>
   <select id="strategy" required>
     <option value="">--Select Strategy--</option>
-    <option value="BHIX-MOC">BHIX-MOC</option>
+    <option value="BHIX-MOC">BHIX-MOC (0.6% Profit/Trade)</option>
     <option value="trend-rider">Trend Rider</option>
     <option value="breakout">Breakout Catcher</option>
     <option value="volatility">Volatility Hunter</option>
     <option value="scalper">Scalper 5x</option>
-  </select>
+  </select><br />
 
+  <label>Market:</label>
   <select id="market" required>
     <option value="">--Select Market--</option>
     <option value="spot">Spot</option>
     <option value="futures">Futures</option>
-  </select>
+  </select><br />
 
   <button type="submit">Start Bot</button>
   <button type="button" onclick="stopBot()">Stop Bot</button>
