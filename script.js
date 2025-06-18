@@ -1,7 +1,9 @@
 const apiBase = "https://c2ca1b7a2dabe00a426fcc6ac3f9873b.serveo.net"; // replace if changed
+      const apiBase = "https://your-serveo-link.serveo.net"; // Replace with actual backend
+
 const wallet = "demo_" + Math.random().toString(36).substring(2, 10);
 
-// Handle Submit (Connection)
+// Handle form submission
 document.getElementById("botForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -26,7 +28,7 @@ document.getElementById("botForm").addEventListener("submit", function (e) {
       if (data.message) {
         alert(data.message);
         updateStatus("✅ Bot connected and started.");
-        fetchLogs(); // Start log updates
+        fetchLogs();
       } else {
         updateStatus("❌ Unexpected response from server.");
       }
@@ -36,6 +38,7 @@ document.getElementById("botForm").addEventListener("submit", function (e) {
     });
 });
 
+// Stop bot
 function stopBot() {
   fetch(`${apiBase}/stop-bot`, {
     method: "POST",
@@ -70,5 +73,5 @@ function fetchLogs() {
     });
 }
 
-// Keep logs auto-updating every 10 seconds
+// Auto-update logs every 10 seconds
 setInterval(fetchLogs, 10000);
