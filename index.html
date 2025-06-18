@@ -30,38 +30,31 @@
 <body>
 
   <form id="botForm">
-  <label>Binance API Key:</label><br>
-  <input type="text" id="apiKey" required><br><br>
+  <input type="text" id="apiKey" placeholder="API Key" required />
+  <input type="text" id="secretKey" placeholder="Secret Key" required />
+  <input type="text" id="symbol" placeholder="Symbol (e.g. BTCUSDT)" required />
 
-  <label>Secret Key:</label><br>
-  <input type="password" id="secretKey" required><br><br>
+  <select id="strategy" required>
+    <option value="">--Select Strategy--</option>
+    <option value="BHIX-MOC">BHIX-MOC</option>
+    <option value="trend-rider">Trend Rider</option>
+    <option value="breakout">Breakout Catcher</option>
+    <option value="volatility">Volatility Hunter</option>
+    <option value="scalper">Scalper 5x</option>
+  </select>
 
-  <label for="symbol">Select Coin to Trade:</label><br>
-  <select id="symbol" required>
-    <option value="BTCUSDT">BTC/USDT</option>
-    <option value="ETHUSDT">ETH/USDT</option>
-    <option value="BNBUSDT">BNB/USDT</option>
-    <option value="ADAUSDT">ADA/USDT</option>
-    <option value="SOLUSDT">SOL/USDT</option>
-    <option value="DOGEUSDT">DOGE/USDT</option>
-    <option value="XRPUSDT">XRP/USDT</option>
-  </select><br><br>
-<select id="strategy">
-  <option value="BHIX-MOC">BHIX-MOC</option>
-  <option value="momentum">Momentum</option>
-  <option value="rsi">RSI Strategy</option>
-  <option value="breakout">Breakout</option>
-  <option value="scalping">Scalping</option>
-  <option value="ai">AI Signal</option>
-  <option value="backtest">Backtest</option>
-</select>
-  <button type="submit">Submit</button>
-  <button type="button" onclick="startBot()">Start</button>
-  <button type="button" onclick="stopBot()">Stop</button>
-  </form>
-  <h3>Live Trade Logs:</h3>
-<pre id="logOutput" style="background:#eee; padding:10px; max-height:300px; overflow:auto;"></pre>
+  <select id="market" required>
+    <option value="">--Select Market--</option>
+    <option value="spot">Spot</option>
+    <option value="futures">Futures</option>
+  </select>
+
+  <button type="submit">Start Bot</button>
+  <button type="button" onclick="stopBot()">Stop Bot</button>
+</form>
+
 <p id="status"></p>
+<pre id="logOutput"></pre>
   <script src="script.js"></script>
 </body>
 </html>
