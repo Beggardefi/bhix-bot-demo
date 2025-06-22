@@ -1,0 +1,86 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #0e0e1a;
+  color: #e6e6fa;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1b1b2f;
+}
+
+.logo {
+  width: 60px;
+  margin-right: 1rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #ffdd57;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.bot-config {
+  background: #202038;
+  padding: 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bot-image {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+.config-form {
+  width: 100%;
+}
+
+.config-form input, .config-form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+}
+
+.config-form button {
+  width: 49%;
+  padding: 0.7rem;
+  margin: 0.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #ffdd57;
+  color: #111;
+}
+
+.dashboard {
+  background: #1b1b2f;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.logs, .summary {
+  margin-top: 2rem;
+}
+
+pre {
+  background: #0d0d1a;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  max-height: 300px;
+}
