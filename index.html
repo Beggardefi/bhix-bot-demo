@@ -1,74 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BHIX Bot Access</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f9f9f9;
-    }
-    h2 {
-      color: #333;
-    }
-    input, button {
-      padding: 10px;
-      margin: 8px 0;
-      width: 300px;
-      display: block;
-    }
-    button {
-      width: 150px;
-    }
-    #status {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>BHIXU Trading Bot Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
+  <header>
+    <img src="assets/bhixu-logo.png" alt="BHIXU Logo" class="logo">
+    <h1>BHIXU Bot Control Panel</h1>
+  </header>
 
-<form id="botForm">
-  <label>API Key:</label>
-  <input type="text" id="apiKey" placeholder="Your Binance API Key" required /><br />
+  <main>
+    <section class="bot-config">
+      <img src="assets/bhixu-bot.png" alt="BHIXU Bot" class="bot-image">
 
-  <label>Secret Key:</label>
-  <input type="text" id="secretKey" placeholder="Your Binance Secret Key" required /><br />
+      <div class="config-form">
+        <input type="text" id="wallet" placeholder="Wallet Address">
+        <input type="text" id="apiKey" placeholder="Binance API Key">
+        <input type="password" id="secretKey" placeholder="Binance Secret Key">
 
-  <label>Select Coin:</label>
-  <select id="symbol" required>
-    <option value="">--Select Coin--</option>
-    <option value="BTCUSDT">BTC/USDT</option>
-    <option value="ETHUSDT">ETH/USDT</option>
-    <option value="BNBUSDT">BNB/USDT</option>
-    <option value="SOLUSDT">SOL/USDT</option>
-    <option value="XRPUSDT">XRP/USDT</option>
-  </select><br />
+        <select id="symbol">
+          <option value="BTCUSDT">BTC/USDT</option>
+          <option value="ETHUSDT">ETH/USDT</option>
+        </select>
 
-  <label>Strategy:</label>
-  <select id="strategy" required>
-    <option value="">--Select Strategy--</option>
-    <option value="BHIX-MOC">BHIX-MOC (0.6% Profit/Trade)</option>
-    <option value="trend-rider">Trend Rider</option>
-    <option value="breakout">Breakout Catcher</option>
-    <option value="volatility">Volatility Hunter</option>
-    <option value="scalper">Scalper 5x</option>
-  </select><br />
+        <select id="strategy">
+          <option value="BHIX-MOC">BHIX-MOC</option>
+          <option value="bhix-beginner">BHIX Beginner</option>
+        </select>
 
-  <label>Market:</label>
-  <select id="market" required>
-    <option value="">--Select Market--</option>
-    <option value="spot">Spot</option>
-    <option value="futures">Futures</option>
-  </select><br />
+        <select id="market">
+          <option value="futures">Futures</option>
+          <option value="spot">Spot</option>
+        </select>
 
-  <button type="submit">Start Bot</button>
-  <button type="button" onclick="stopBot()">Stop Bot</button>
-</form>
+        <button onclick="startBot()">▶️ Start Bot</button>
+        <button onclick="stopBot()">⏹️ Stop Bot</button>
+      </div>
+    </section>
 
-<p id="status"></p>
-<pre id="logOutput"></pre>
+    <section class="dashboard">
+      <div id="tradingview_chart"></div>
+      <div class="logs">
+        <h3>Live Logs</h3>
+        <pre id="logOutput">No logs yet...</pre>
+      </div>
+
+      <div class="summary">
+        <h3>Trade Summary</h3>
+        <pre id="summaryOutput">Loading...</pre>
+      </div>
+    </section>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
