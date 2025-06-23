@@ -1,77 +1,66 @@
-const apiBase = "https://c2ca1b7a2dabe00a426fcc6ac3f9873b.serveo.net"; // replace if changed
-      const apiBase = "https://your-serveo-link.serveo.net"; // Replace with actual backend
+const SERVER_URL = "http://<YOUR_TERMUX_IP>:8000"; // Update with your local IP
 
-const wallet = "demo_" + Math.random().toString(36).substring(2, 10);
-
-// Handle form submission
-document.getElementById("botForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const apiKey = document.getElementById("apiKey").value.trim();
-  const secretKey = document.getElementById("secretKey").value.trim();
+async function startBot() {
+  const wallet = document.getElementById("wallet").value;
+  const apiKey = document.getElementById("apiKey").value;
+  const secretKey = document.getElementById("secretKey").value;
   const symbol = document.getElementById("symbol").value;
   const strategy = document.getElementById("strategy").value;
   const market = document.getElementById("market").value;
 
-  if (!apiKey || !secretKey || !symbol || !strategy || !market) {
-    return updateStatus("⚠️ Please fill all fields before submitting.");
+  const response = await fetch(`${SERVER_URL}/start-bot`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ wallet, apiKey, secretKey, symbol, strategy, market })
+  });
+
+  const data = await response.json();
+  alert(data.message);
+  fetchLogs(wallet);
+  fetchSummary(wallet);
+}
+
+async function stopBot() {
+  const wallet = document.getElementById("wallet").value;
+
+  const response = await fetch(`${SERVER_URL}/stop-bot`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ wallet })
+  });
+
+  const data = await response.json();
+  alert(data.message);
+}
+
+async function fetchLogs(wallet) {
+  const res = await fetch(`${SERVER_URL}/logs/${wallet}`);
+  const text = await res.text();
+  document.getElementById("logOutput").innerText = text;
+}
+
+async function fetchSummary(wallet) {
+  try {
+    const res = await fetch(`logs/${wallet}_summary.json`);
+    const summary = await res.json();
+    document.getElementById("summaryOutput").innerText = JSON.stringify(summary, null, 2);
+  } catch {
+    document.getElementById("summaryOutput").innerText = "No summary found.";
   }
+}
 
-  // Start bot
-  fetch(`${apiBase}/start-bot`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ wallet, apiKey, secretKey, symbol, strategy, market }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.message) {
-        alert(data.message);
-        updateStatus("✅ Bot connected and started.");
-        fetchLogs();
-      } else {
-        updateStatus("❌ Unexpected response from server.");
-      }
-    })
-    .catch((err) => {
-      updateStatus("❌ Error: " + err.message);
-    });
+// Live TradingView Widget
+new TradingView.widget({
+  "container_id": "tradingview_chart",
+  "autosize": true,
+  "symbol": "BINANCE:BTCUSDT",
+  "interval": "15",
+  "timezone": "Etc/UTC",
+  "theme": "dark",
+  "style": "1",
+  "locale": "en",
+  "toolbar_bg": "#1b1b2f",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "hide_side_toolbar": false
 });
-
-// Stop bot
-function stopBot() {
-  fetch(`${apiBase}/stop-bot`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ wallet }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      alert(data.message || "Bot stopped.");
-      updateStatus("🛑 Bot stopped.");
-    })
-    .catch((err) => {
-      updateStatus("❌ Error stopping bot: " + err.message);
-    });
-}
-
-function updateStatus(msg) {
-  document.getElementById("status").innerText = msg;
-}
-
-function fetchLogs() {
-  fetch(`${apiBase}/logs/${wallet}`)
-    .then((res) => {
-      if (!res.ok) throw new Error("Log fetch failed");
-      return res.text();
-    })
-    .then((data) => {
-      document.getElementById("logOutput").innerText = data || "📄 No logs yet.";
-    })
-    .catch((err) => {
-      document.getElementById("logOutput").innerText = "⚠️ Error loading logs.";
-    });
-}
-
-// Auto-update logs every 10 seconds
-setInterval(fetchLogs, 10000);
